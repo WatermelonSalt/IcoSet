@@ -13,7 +13,7 @@ def setIcons(function):
 
         function(*args, **kwargs)
 
-        if function.__name__.endswith('CommonFolders'):
+        if function.__name__.endswith('CommonFoldersOnly'):
 
             for folder in args[0].FolderPaths_Common:
 
@@ -50,7 +50,7 @@ class SetIconsFromConfig:
         self.ToolTips_NonCommon = config['ToolTips_Non-Common']
 
     @setIcons
-    def generateDesktopiniforCommonFolders(self):
+    def generateDesktopiniforCommonFoldersOnly(self):
 
         for index, folder in enumerate(self.FolderPaths_Common):
 
@@ -114,6 +114,6 @@ def execute(argument):
     Setter.getConfigJson(argument)
     print(f"{Fore.MAGENTA}Got the config file from {Fore.YELLOW}{argument} {Fore.GREEN}successfully")
     print(f"{Fore.WHITE}Trying to set icons...")
-    Setter.generateDesktopiniforCommonFolders()
+    Setter.generateDesktopiniforCommonFoldersOnly()
     Setter.generateDesktopiniforNonCommonFolders()
     print(f"{Fore.MAGENTA}Icons set successfully")
