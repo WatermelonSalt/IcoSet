@@ -168,8 +168,16 @@ def checkUnallowedCombos(optionlist):
 
 def handleOptions(argv):
 
-    opts, errs = getopt.getopt(
-        argv[1:], shortopts="c:hm", longopts=["config=", "help", "manual"])
+    try:
+
+        opts, errs = getopt.getopt(
+            argv[1:], shortopts="c:hm", longopts=["config=", "help", "manual"])
+
+    except Exception as exp:
+
+        print(f"{Fore.RED}{exp}\n\n{Fore.BLUE}The program will exit now")
+        sys.exit()
+
     options, arguments = splitOptsVar(opts)
 
     if errs != []:
