@@ -2,6 +2,10 @@ import getopt
 import json
 import os
 
+from colorama import init, Fore
+
+init()
+
 
 def setIcons(function):
 
@@ -17,6 +21,7 @@ def setIcons(function):
 
                 os.system(f'''attrib +r "{path}"''')
                 os.system(f'''attrib +s +h "{path}"/desktop.ini''')
+                print(f"{Fore.GREEN}Icon set successfully for {Fore.YELLOW}{path}")
 
         if function.__name__.endswith('NonCommonFolders'):
 
@@ -24,6 +29,7 @@ def setIcons(function):
 
                 os.system(f'''attrib +r "{folder}"''')
                 os.system(f'''attrib +s +h "{folder}/desktop.ini"''')
+                print(f"{Fore.GREEN}Icon set successfully for {Fore.YELLOW}{folder}")
 
     return wrapper
 
@@ -50,6 +56,8 @@ class SetIconsFromConfig:
 
             path = self.CommonFoldersPath + folder
 
+            print(f"{Fore.YELLOW}{path} {Fore.GREEN}added to queue")
+
             with open(f"{path}/desktop.txt", "w+") as inifile:
 
                 contents = f"""[.ShellClassInfo]
@@ -74,6 +82,8 @@ InfoTip = {self.ToolTips_Common[index]}
     def generateDesktopiniforNonCommonFolders(self):
 
         for index, folder in enumerate(self.FolderPaths_NonCommon):
+
+            print(f"{Fore.YELLOW}{folder} {Fore.GREEN}added to queue")
 
             with open(f"{folder}/desktop.txt", "w+") as inifile:
 
@@ -100,6 +110,10 @@ def execute(argument):
 
     Setter = SetIconsFromConfig()
 
+    print(f"{Fore.GREEN}Getting the config file...")
     Setter.getConfigJson(argument)
+    print(f"{Fore.MAGENTA}Got the config file from {Fore.YELLOW}{argument} {Fore.GREEN}successfully")
+    print(f"{Fore.WHITE}Trying to set icons...")
     Setter.generateDesktopiniforCommonFolders()
     Setter.generateDesktopiniforNonCommonFolders()
+    print(f"{Fore.MAGENTA}Icons set successfully")

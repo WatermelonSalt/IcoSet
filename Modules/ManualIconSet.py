@@ -19,6 +19,7 @@ def checkSelectedFile():
 
         if check == 0:
 
+            print(f"{Fore.RED}Unable to get the resource")
             print(
                 f"{Fore.RED}You selected the wrong file type again!\nThe program will now continue to the next try")
 
@@ -89,6 +90,7 @@ def setIcon(function):
 
         os.system(f'''attrib +r "{folder_path}"''')
         os.system(f'''attrib +s +h "{folder_path}"/desktop.ini''')
+        print(f"{Fore.GREEN}Icon set successfully")
 
     return wrapper
 
@@ -129,11 +131,19 @@ def execute(repeat = 1):
     global check
     global result
 
+    result = 1
+
     for trynumber in range(0, repeat):
 
         print(f"{Fore.GREEN}Try number : {trynumber + 1}")
 
+        print(f"{Fore.GREEN}Getting the folder to set the icon")
+
         folder_path = filedialog.askdirectory()
+
+        print(f"{Fore.GREEN}Got the folder as {Fore.YELLOW}{folder_path} {Fore.GREEN}successfully")
+        print(f"{Fore.GREEN}Trying to get the icon resource")
+
         icon_path = filedialog.askopenfilename(
             initialdir="/", title="Select Icon file", filetypes=(("Icon Files", "*.ico"), ("All Files", "*.*")))
         choice = 1
@@ -145,7 +155,16 @@ def execute(repeat = 1):
 
             continue
 
+        else:
+
+            print(f"{Fore.GREEN}Got the resource as {Fore.YELLOW}{icon_path} {Fore.GREEN}successfully")
+
+        print(f"{Fore.GREEN}Getting ToolTip string")
+
         ToolTip = input(
             f"{Fore.CYAN}Enter any information that you want to show as a tool tip when hovering above a folder : ")
 
+        print(f"{Fore.GREEN}Got the ToolTip string successfully")
+
+        print(f"{Fore.BLUE}Setting icon for {folder_path}")
         generateDesktopini()
