@@ -43,7 +43,7 @@ class SetIconsFromConfig:
         self.CommonFolders = config['CommonFolders']
         self.PathFromCommonFolders = config['PathFromCommonFolders']
         self.CommonIconsFolder = config['CommonIconsFolder']
-        self.PathFromCommonIconsFolder = config['PathFromCommonIconsFolder']
+        self.PathFromCommonIconsFolders = config['PathFromCommonIconsFolders']
         self.NonCommonFolderPaths = config['Non-CommonFolderPaths']
         self.NonCommonIconPaths = config['Non-CommonIconPaths']
         self.CommonToolTips = config['CommonToolTips']
@@ -61,7 +61,7 @@ class SetIconsFromConfig:
             with open(f"{path}/desktop.txt", "w+") as inifile:
 
                 contents = f"""[.ShellClassInfo]
-IconFile = {self.CommonIconsFolder}/{self.PathFromCommonIconsFolder[index]}
+IconFile = {self.CommonIconsFolder}/{self.PathFromCommonIconsFolders[index]}
 IconIndex = 0
 InfoTip = {self.CommonToolTips[index]}
 """
