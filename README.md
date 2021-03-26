@@ -10,7 +10,7 @@ I really wanted custom icons to show up on all my windows systems, even when I c
 
 ## Do I need to install this on my system to use it?
 
-No, just place **`IcoSet.py`** and your **`config.json`** where ever you wish and just execute *`IcoSet.py`* with the proper path to the *`config.json`*
+No, just place your **`config.json`** where ever you wish and just execute *`IcoSet.py`* with the proper path to the *`config.json`*
 
 ## How to use it?
 
@@ -19,6 +19,8 @@ First, you need `Python` installed or at least the embeddable package of `Python
 `python IcoSet.py -c "path/to/your/config.json"`
 
 Where, you have to replace the path with your path
+
+Also, you can do `python IcoSet.py -h` for help
 
 There will be a release with the python embeddable package in  case if you don't have `Python` too
 
