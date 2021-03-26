@@ -14,7 +14,9 @@ No, just place your **`config.json`** where ever you wish and just execute *`Ico
 
 ## How to use it?
 
-First, you need `Python` installed or at least the embeddable package of `Python` on your system or drive and just execute the script like shown below
+`pip install colorama` to install the only dependency
+
+You need `Python` installed on your system or drive and just execute the script like shown below
 
 `python IcoSet.py -c "path/to/your/config.json"`
 
@@ -22,25 +24,7 @@ Where, you have to replace the path with your path
 
 Also, you can do `python IcoSet.py -h` for help
 
-There will be a release with the python embeddable package in  case if you don't have `Python` too
-
-How to use the embeddable package version?
-
-Well, there are two ways of doing it
-
-***Way 1:***
-
-* Open `python.exe` in the embeddable package
-* Paste the below lines and replace with your path
-
-```py
-import os
-os.system("python ./Code/IcoSet.py -c 'path/to/your/config.json'")
-```
-
-***Way 2:***
-
-* Open a commandline in the root of the embeddable package and do `./python ./Code/IcoSet.py -c 'path/to/your/config.json'` and also replace the path with your path
+The Python embeddable package version has been discontinued due to difficulties in installing some required modules
 
 ## Things you should know
 
