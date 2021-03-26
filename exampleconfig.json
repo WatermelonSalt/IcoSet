@@ -1,9 +1,9 @@
 {
-    "CommonIconsPath": "E:/WatermelonSalt/Images/Icons",
+    "CommonIconsFolder": "E:/WatermelonSalt/Images/Icons",
 
-    "CommonFoldersPath": "E:/WatermelonSalt",
+    "CommonFolders": "E:/WatermelonSalt",
 
-    "FolderPaths_Common": [
+    "PathFromCommonFolder": [
         "",
         "/Apps",
         "/Github",
@@ -11,7 +11,7 @@
         "/SVGs"
     ],
 
-    "IconPaths_Common": [
+    "PathFromCommonIconsFolder": [
         "Salt.ico",
         "Profile.ico",
         "Github.ico",
@@ -19,7 +19,7 @@
         "SVGs.ico"
     ],
 
-    "FolderPaths_Non-Common": [
+    "Non-CommonFolderPaths": [
         "E:/WatermelonSalt",
         "E:/WatermelonSalt/Apps",
         "E:/WatermelonSalt/Github",
@@ -27,7 +27,7 @@
         "E:/WatermelonSalt/SVGs"
     ],
 
-    "IconPaths_Non-Common": [
+    "Non-CommonIconPaths": [
         "E:/WatermelonSalt/Images/Icons/Salt.ico",
         "E:/WatermelonSalt/Images/Icons/Profile.ico",
         "E:/WatermelonSalt/Images/Icons/Github.ico",
@@ -35,7 +35,7 @@
         "E:/WatermelonSalt/Images/Icons/SVGs.ico"
     ],
 
-    "ToolTips_Common": [
+    "CommonToolTips": [
         "Dev ID Folder",
         "Apps Folder",
         "Github Repos",
@@ -43,7 +43,7 @@
         "SVGs"
     ],
 
-    "ToolTips_Non-Common": [
+    "Non-CommonToolTips": [
         "Dev ID Folder",
         "Apps Folder",
         "Github Repos",

@@ -15,9 +15,9 @@ def setIcons(function):
 
         if function.__name__.endswith('CommonFoldersOnly'):
 
-            for folder in args[0].FolderPaths_Common:
+            for folder in args[0].PathFromCommonFolders:
 
-                path = args[0].CommonFoldersPath + folder
+                path = args[0].CommonFolders + folder
 
                 os.system(f'''attrib +r "{path}"''')
                 os.system(f'''attrib +s +h "{path}"/desktop.ini''')
@@ -25,7 +25,7 @@ def setIcons(function):
 
         if function.__name__.endswith('NonCommonFolders'):
 
-            for folder in args[0].FolderPaths_NonCommon:
+            for folder in args[0].NonCommonFolderPaths:
 
                 os.system(f'''attrib +r "{folder}"''')
                 os.system(f'''attrib +s +h "{folder}/desktop.ini"''')
@@ -40,30 +40,30 @@ class SetIconsFromConfig:
 
         config = open(argument, 'r').read()
         config = json.loads(config)
-        self.CommonFoldersPath = config['CommonFoldersPath']
-        self.FolderPaths_Common = config['FolderPaths_Common']
-        self.IconPaths_Common = config['IconPaths_Common']
-        self.CommonIconsPath = config['CommonIconsPath']
-        self.FolderPaths_NonCommon = config['FolderPaths_Non-Common']
-        self.IconPaths_NonCommon = config['IconPaths_Non-Common']
-        self.ToolTips_Common = config['ToolTips_Common']
-        self.ToolTips_NonCommon = config['ToolTips_Non-Common']
+        self.CommonFolders = config['CommonFolders']
+        self.PathFromCommonFolders = config['PathFromCommonFolders']
+        self.CommonIconsFolder = config['CommonIconsFolder']
+        self.PathFromCommonIconsFolder = config['PathFromCommonIconsFolder']
+        self.NonCommonFolderPaths = config['Non-CommonFolderPaths']
+        self.NonCommonIconPaths = config['Non-CommonIconPaths']
+        self.CommonToolTips = config['CommonToolTips']
+        self.NonCommonToolTips = config['Non-CommonToolTips']
 
     @setIcons
     def generateDesktopiniforCommonFoldersOnly(self):
 
-        for index, folder in enumerate(self.FolderPaths_Common):
+        for index, folder in enumerate(self.PathFromCommonFolders):
 
-            path = self.CommonFoldersPath + folder
+            path = self.CommonFolders + folder
 
             print(f"{Fore.YELLOW}{path} {Fore.GREEN}added to queue")
 
             with open(f"{path}/desktop.txt", "w+") as inifile:
 
                 contents = f"""[.ShellClassInfo]
-IconFile = {self.CommonIconsPath}/{self.IconPaths_Common[index]}
+IconFile = {self.CommonIconsFolder}/{self.PathFromCommonIconsFolder[index]}
 IconIndex = 0
-InfoTip = {self.ToolTips_Common[index]}
+InfoTip = {self.CommonToolTips[index]}
 """
                 print(contents, file=inifile)
 
@@ -81,16 +81,16 @@ InfoTip = {self.ToolTips_Common[index]}
     @setIcons
     def generateDesktopiniforNonCommonFolders(self):
 
-        for index, folder in enumerate(self.FolderPaths_NonCommon):
+        for index, folder in enumerate(self.NonCommonFolderPaths):
 
             print(f"{Fore.YELLOW}{folder} {Fore.GREEN}added to queue")
 
             with open(f"{folder}/desktop.txt", "w+") as inifile:
 
                 contents = f"""[.ShellClassInfo]
-IconFile = {self.IconPaths_NonCommon[index]}
+IconFile = {self.NonCommonIconPaths[index]}
 IconIndex = 0
-InfoTip = {self.ToolTips_NonCommon[index]}
+InfoTip = {self.NonCommonToolTips[index]}
 """
                 print(contents, file=inifile)
 
