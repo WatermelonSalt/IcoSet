@@ -24,8 +24,6 @@ Where, you have to replace the path with your path
 
 Also, you can do `python IcoSet.py -h` for help
 
-The Python embeddable package version has been discontinued due to difficulties in installing some required modules
-
 ## Things you should know
 
 * **This program is completely self-contained and portable**
@@ -37,4 +35,6 @@ The Python embeddable package version has been discontinued due to difficulties 
 
 ## Upcoming
 
-Support for multiple common folder paths is coming soon
+Please suggest something
+
+**Previous upcoming feature *"Multiple common folder support"* added!**
