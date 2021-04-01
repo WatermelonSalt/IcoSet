@@ -27,7 +27,7 @@ Also, you can do `python IcoSet.py -h` for help
 ## Things you should know
 
 * **This program is completely self-contained and portable**
-* Currently supports only one common path for folders
+* Currently supports multiple common paths for folders
 * Modifies a system file to achieve the result(This file **will** be modified even if you do this manually)
 * This is *Open-Source* and you can modify it to your needs
 * Uses a GPL 3.0 License
