@@ -15,13 +15,15 @@ def setIcons(function):
 
         if function.__name__.endswith('CommonFoldersOnly'):
 
-            for folder in args[0].PathFromCommonFolders:
+            for index_super, folder_common in enumerate(args[0].CommonFolders):
 
-                path = args[0].CommonFolders + folder
+                for folder in args[0].PathFromCommonFolders[index_super]:
 
-                os.system(f'''attrib +r "{path}"''')
-                os.system(f'''attrib +s +h "{path}"/desktop.ini''')
-                print(f"{Fore.GREEN}Icon set successfully for {Fore.YELLOW}{path}")
+                    path = args[0].CommonFolders[index_super] + folder
+
+                    os.system(f'''attrib +r "{path}"''')
+                    os.system(f'''attrib +s +h "{path}"/desktop.ini''')
+                    print(f"{Fore.GREEN}Icon set successfully for {Fore.YELLOW}{path}")
 
         if function.__name__.endswith('NonCommonFolders'):
 
@@ -52,31 +54,33 @@ class SetIconsFromConfig:
     @setIcons
     def generateDesktopiniforCommonFoldersOnly(self):
 
-        for index, folder in enumerate(self.PathFromCommonFolders):
+        for index_super, folder_common in enumerate(self.CommonFolders):
 
-            path = self.CommonFolders + folder
+            for index, folder in enumerate(self.PathFromCommonFolders[index_super]):
 
-            print(f"{Fore.YELLOW}{path} {Fore.GREEN}added to queue")
+                path = self.CommonFolders[index_super] + folder
 
-            with open(f"{path}/desktop.txt", "w+") as inifile:
+                print(f"{Fore.YELLOW}{path} {Fore.GREEN}added to queue")
 
-                contents = f"""[.ShellClassInfo]
-IconFile = {self.CommonIconsFolder}/{self.PathFromCommonIconsFolders[index]}
-IconIndex = 0
-InfoTip = {self.CommonToolTips[index]}
-"""
-                print(contents, file=inifile)
+                with open(f"{path}/desktop.txt", "w+") as inifile:
 
-            inifile.close()
+                    contents = f"""[.ShellClassInfo]
+    IconFile = {self.CommonIconsFolder[index_super]}{self.PathFromCommonIconsFolders[index_super][index]}
+    IconIndex = 0
+    InfoTip = {self.CommonToolTips[index_super][index]}
+    """
+                    print(contents, file=inifile)
 
-            try:
+                inifile.close()
 
-                os.rename(f"{path}/desktop.txt", f"{path}/desktop.ini")
+                try:
 
-            except FileExistsError:
+                    os.rename(f"{path}/desktop.txt", f"{path}/desktop.ini")
 
-                os.remove(f"{path}/desktop.ini")
-                os.rename(f"{path}/desktop.txt", f"{path}/desktop.ini")
+                except FileExistsError:
+
+                    os.remove(f"{path}/desktop.ini")
+                    os.rename(f"{path}/desktop.txt", f"{path}/desktop.ini")
 
     @setIcons
     def generateDesktopiniforNonCommonFolders(self):
