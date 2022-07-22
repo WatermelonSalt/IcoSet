@@ -37,4 +37,4 @@ Also, you can do `python IcoSet.py -h` for help
 
 Please suggest something
 
-**Previous upcoming feature *"Multiple common folder support"* added!**
+**Previous upcoming feature *"Multiple common folder support!"* added!**
