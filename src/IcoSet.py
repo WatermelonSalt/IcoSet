@@ -25,6 +25,7 @@ ol to set icons to directories with ease{Fore.RESET}")
         help="Operate the program in interactive mode"
     )
 
-    print(argument_processor.parse_args(argv[1:]))
+    processed_arguments = vars(argument_processor.parse_args(argv[1:]))
+    print(processed_arguments)
 
     deinit()
