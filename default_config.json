@@ -1,0 +1,18 @@
+{
+    "recurse": [
+        "path/to/dir/to/be/recursed",
+        "path/to/dir/to/be/recursed"
+    ],
+    "encapsulating": [
+        "path/to/encapsulating/dir",
+        "path/to/encapsulating/dir"
+    ],
+    "dir": [
+        "path/to/dir",
+        "path/to/dir"
+    ],
+    "icon_sources": [
+        "path/to/dir/containing/icon/files",
+        "path/to/dir/containing/icon/files"
+    ]
+}
