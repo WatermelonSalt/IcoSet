@@ -1,6 +1,11 @@
-from sys import argv
-from colorama import Fore, init, deinit
 import argparse
+from sys import argv
+from tkinter import W
+
+from colorama import Fore, deinit, init
+
+import logger
+from config_parser import Configurator
 
 if __name__ == "__main__":
 
@@ -25,7 +30,20 @@ ol to set icons to directories with ease{Fore.RESET}")
         help="Operate the program in interactive mode"
     )
 
+    argument_processor.add_argument(
+        "-l", "--log",
+        action="store_true",
+        help="Enable / Disable logging"
+    )
+
     processed_arguments = vars(argument_processor.parse_args(argv[1:]))
-    print(processed_arguments)
+
+    logger.toggle_logger(processed_arguments["log"])
+
+    logger.logger.debug(f"Parsed Arguments : {processed_arguments}")
+
+    config_parser = Configurator(processed_arguments["config_path"])
+
+    config_parser.get_paths()
 
     deinit()
