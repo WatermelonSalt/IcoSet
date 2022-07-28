@@ -40,10 +40,8 @@ ol to set icons to directories with ease{Fore.RESET}")
 
     logger.toggle_logger(processed_arguments["log"])
 
-    logger.logger.debug(f"Parsed Arguments : {processed_arguments}")
+    logger.logger.info(f"Parsed Arguments : {processed_arguments}")
 
     config_parser = Configurator(processed_arguments["config_path"])
-
-    config_parser.get_paths()
 
     deinit()
