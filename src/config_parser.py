@@ -1,8 +1,8 @@
 from json import load
-
-import logger
 from os import listdir
 from os.path import isdir
+
+import logger
 
 
 class Configurator:
