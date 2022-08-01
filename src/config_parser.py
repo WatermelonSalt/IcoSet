@@ -1,6 +1,8 @@
 from json import load
 
 import logger
+from os import listdir
+from os.path import isdir
 
 
 class Configurator:
@@ -25,3 +27,21 @@ class Configurator:
             yield dir
 
             logger.logger.debug(f"Facilitated path to {dir} in mode 'dir'")
+
+    def encapsulating_facilitator(self):
+
+        for path in self.paths["encapsulating"]:
+
+            for dir in listdir(path):
+
+                if isdir(f"{path}/{dir}"):
+
+                    yield dir
+
+                    logger.logger.debug(
+                        f"Facilitated path to {dir} in mode 'encapsulating'")
+
+                else:
+
+                    logger.logger.debug(
+                        f"{dir} is not a directory, did not facilitate path")
