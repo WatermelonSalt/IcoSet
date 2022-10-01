@@ -47,7 +47,7 @@ class Configurator:
 
                     if isdir(f"{path}/{dir}"):
 
-                        yield dir
+                        yield f"{path}/{dir}"
 
                         logger.logger.debug(
                             f"Facilitated path to {path}/{dir} in mode 'encapsulating'")
