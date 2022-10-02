@@ -1,6 +1,5 @@
 import argparse
 from sys import argv
-from tkinter import W
 
 from colorama import Fore, deinit, init
 
@@ -43,5 +42,7 @@ ol to set icons to directories with ease{Fore.RESET}")
     logger.logger.info(f"Parsed Arguments : {processed_arguments}")
 
     config_parser = Configurator(processed_arguments["config_path"])
+
+    config_parser.icons_facilitator()
 
     deinit()

@@ -1,6 +1,6 @@
 from json import load
 from os import listdir
-from os.path import isdir
+from os.path import isdir, splitext, basename
 
 import logger
 
@@ -35,17 +35,19 @@ class Configurator:
                 logger.logger.debug(
                     f"{dir} is not a directory, did not facilitate path")
 
-    def encapsulating_facilitator(self):
+    def encapsulating_facilitator(self, dir_file=True, src=None):
 
-        for path in self.paths["encapsulating"]:
+        for path in (self.paths["encapsulating"] if not src else (src if type(src) is list else [src])):
 
             if isdir(path):
 
-                yield path
+                if dir_file:
+
+                    yield path
 
                 for dir in listdir(path):
 
-                    if isdir(f"{path}/{dir}"):
+                    if isdir(f"{path}/{dir}") == dir_file:
 
                         yield f"{path}/{dir}"
 
@@ -55,12 +57,12 @@ class Configurator:
                     else:
 
                         logger.logger.debug(
-                            f"{path}/{dir} is not a directory, did not facilitate path")
+                            f"{path}/{dir} is not a {'directory' if dir_file else 'file'}, did not facilitate path")
 
             else:
 
                 logger.logger.debug(
-                    f"Skipping {path} as it is not a directory"
+                    f"Skipping {path} as it is not a {'directory' if dir_file else 'file'}"
                 )
 
     def recurse_facilitator(self):
@@ -108,3 +110,30 @@ class Configurator:
                     )
 
             dirs_to_recurse.pop(0)
+
+    def icons_facilitator(self):
+
+        icons = dict()
+
+        for path in self.paths["icon_sources"]:
+
+            if (isdir(path) == 0 and (splitext(path)[1] == ".ico")):
+
+                icons[splitext(basename(path))[0]] = path
+
+                logger.logger.debug(
+                    f"Added {path} to the list of icon sources under the alias '{splitext(basename(path))[0]}'")
+
+            else:
+
+                logger.logger.debug(
+                    f"{path} is a directory, icons will be sourced with 'encapsulated' mode")
+
+                for file_path in self.encapsulating_facilitator(dir_file=False, src=path):
+
+                    if splitext(file_path)[1] == ".ico":
+
+                        icons[splitext(basename(file_path))[0]] = file_path
+
+                        logger.logger.debug(
+                            f"Added {file_path} to the list of icon sources under the alias '{splitext(basename(file_path))[0]}'")
