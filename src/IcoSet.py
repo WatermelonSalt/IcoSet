@@ -43,6 +43,4 @@ ol to set icons to directories with ease{Fore.RESET}")
 
     config_parser = Configurator(processed_arguments["config_path"])
 
-    config_parser.icons_facilitator()
-
     deinit()
