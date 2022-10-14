@@ -5,6 +5,7 @@ from colorama import Fore, deinit, init
 
 import logger
 from config_parser import Configurator
+from setter import Icon_Setter
 
 if __name__ == "__main__":
 
@@ -38,9 +39,12 @@ ol to set icons to directories with ease{Fore.RESET}")
     processed_arguments = vars(argument_processor.parse_args(argv[1:]))
 
     logger.toggle_logger(processed_arguments["log"])
-
     logger.logger.info(f"Parsed Arguments : {processed_arguments}")
 
-    config_parser = Configurator(processed_arguments["config_path"])
+    config_parser = Configurator(
+        "test_config.json" if (processed_arguments["config_path"] == 'none') else processed_arguments["config_path"])
+
+    icon_setter = Icon_Setter(config_parser)
+    icon_setter.set_icons()
 
     deinit()

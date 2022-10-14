@@ -1,6 +1,6 @@
 from json import load
 from os import listdir
-from os.path import isdir, splitext, basename
+from os.path import basename, isdir, splitext
 
 import logger
 
@@ -22,68 +22,87 @@ class Configurator:
 
     def dir_facilitator(self):
 
-        for dir in self.paths["dir"]:
+        try:
 
-            if isdir(dir):
+            for dir in self.paths["dir"]:
 
-                yield dir
+                if isdir(dir):
 
-                logger.logger.debug(f"Facilitated path to {dir} in mode 'dir'")
+                    yield dir
 
-            else:
+                    logger.logger.debug(
+                        f"Facilitated path to {dir} in mode 'dir'")
 
-                logger.logger.debug(
-                    f"{dir} is not a directory, did not facilitate path")
+                else:
+
+                    logger.logger.debug(
+                        f"{dir} is not a directory, did not facilitate path")
+
+        except KeyError as msg:
+
+            logger.logger.info(f"{msg} ignored in dir_facilitator")
 
     def encapsulating_facilitator(self, dir_file=True, src=None):
 
-        for path in (self.paths["encapsulating"] if not src else (src if type(src) is list else [src])):
+        try:
 
-            if isdir(path):
+            for path in (self.paths["encapsulating"] if not src else (src if type(src) is list else [src])):
 
-                if dir_file:
+                if isdir(path):
 
-                    yield path
+                    if dir_file:
 
-                for dir in listdir(path):
+                        yield path
 
-                    if isdir(f"{path}/{dir}") == dir_file:
+                    for dir in listdir(path):
 
-                        yield f"{path}/{dir}"
+                        if isdir(f"{path}/{dir}") == dir_file:
 
-                        logger.logger.debug(
-                            f"Facilitated path to {path}/{dir} in mode 'encapsulating'")
+                            yield f"{path}/{dir}"
 
-                    else:
+                            logger.logger.debug(
+                                f"Facilitated path to {path}/{dir} in mode 'encapsulating'")
 
-                        logger.logger.debug(
-                            f"{path}/{dir} is not a {'directory' if dir_file else 'file'}, did not facilitate path")
+                        else:
 
-            else:
+                            logger.logger.debug(
+                                f"{path}/{dir} is not a {'directory' if dir_file else 'file'}, did not facilitate path")
 
-                logger.logger.debug(
-                    f"Skipping {path} as it is not a {'directory' if dir_file else 'file'}"
-                )
+                else:
+
+                    logger.logger.debug(
+                        f"Skipping {path} as it is not a {'directory' if dir_file else 'file'}"
+                    )
+
+        except KeyError as msg:
+
+            logger.logger.info(f"{msg} ignored in encapsulating_facilitator")
 
     def recurse_facilitator(self):
 
         dirs_to_recurse = []
 
-        for path in self.paths["recurse"]:
+        try:
 
-            if isdir(path):
+            for path in self.paths["recurse"]:
 
-                dirs_to_recurse.append(path)
+                if isdir(path):
 
-                logger.logger.debug(
-                    f"Added {path} to the list of directories to be recursed"
-                )
+                    dirs_to_recurse.append(path)
 
-            else:
+                    logger.logger.debug(
+                        f"Added {path} to the list of directories to be recursed"
+                    )
 
-                logger.logger.debug(
-                    f"Skipping {path} as it is not a directory"
-                )
+                else:
+
+                    logger.logger.debug(
+                        f"Skipping {path} as it is not a directory"
+                    )
+
+        except KeyError as msg:
+
+            logger.logger.info(f"{msg} ignored in recurse_facilitator")
 
         while dirs_to_recurse:
 
@@ -115,25 +134,33 @@ class Configurator:
 
         icons = dict()
 
-        for path in self.paths["icon_sources"]:
+        try:
 
-            if (isdir(path) == 0 and (splitext(path)[1] == ".ico")):
+            for path in self.paths["icon_sources"]:
 
-                icons[splitext(basename(path))[0]] = path
+                if (isdir(path) == 0 and (splitext(path)[1] == ".ico")):
 
-                logger.logger.debug(
-                    f"Added {path} to the list of icon sources under the alias '{splitext(basename(path))[0]}'")
+                    icons[splitext(basename(path))[0]] = path
 
-            else:
+                    logger.logger.debug(
+                        f"Added {path} to the list of icon sources under the alias '{splitext(basename(path))[0]}'")
 
-                logger.logger.debug(
-                    f"{path} is a directory, icons will be sourced with 'encapsulated' mode")
+                else:
 
-                for file_path in self.encapsulating_facilitator(dir_file=False, src=path):
+                    logger.logger.debug(
+                        f"{path} is a directory, icons will be sourced with 'encapsulated' mode")
 
-                    if splitext(file_path)[1] == ".ico":
+                    for file_path in self.encapsulating_facilitator(dir_file=False, src=path):
 
-                        icons[splitext(basename(file_path))[0]] = file_path
+                        if splitext(file_path)[1] == ".ico":
 
-                        logger.logger.debug(
-                            f"Added {file_path} to the list of icon sources under the alias '{splitext(basename(file_path))[0]}'")
+                            icons[splitext(basename(file_path))[0]] = file_path
+
+                            logger.logger.debug(
+                                f"Added {file_path} to the list of icon sources under the alias '{splitext(basename(file_path))[0]}'")
+
+        except KeyError as msg:
+
+            logger.logger.info(f"{msg} ignored in icons_facilitator")
+
+        return icons
