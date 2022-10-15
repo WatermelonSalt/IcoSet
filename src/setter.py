@@ -27,12 +27,17 @@ class Icon_Setter:
                                   f"IconIndex = 0")
 
                         logger.logger.debug(
-                            f"ini file successfully written for {directory}")
+                            f"ini file proto text successfully written for {directory}")
 
                     except KeyError as msg:
 
                         logger.logger.info(
                             f"Skipping {directory} as icon source for it doesn't exist")
+
+                        continue
+
+                logger.logger.debug(
+                    f"Attempting to rename txt to ini for {directory}")
 
                 try:
 
@@ -45,8 +50,16 @@ class Icon_Setter:
                     rename(f"{directory}/desktop.txt",
                            f"{directory}/desktop.ini")
 
+                logger.logger.debug(
+                    f"ini file successfully written for {directory}")
+                logger.logger.debug(
+                    f"Attempting to set perms for {directory}")
+
                 system(f'attrib +r "{directory}"')
                 system(f'attrib +s +h "{directory}"/desktop.ini')
+
+                logger.logger.debug(
+                    f"Successfully set perms for {directory}")
 
         return actual_setter
 
