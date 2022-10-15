@@ -128,4 +128,4 @@ dmypy.json
 test_config.json
 
 # logs
-IcoSet_log.txt
+IcoSet_*.log
